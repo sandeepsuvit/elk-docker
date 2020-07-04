@@ -8,6 +8,7 @@ This project is a sample configuration that represents the usage of ELK stack
 
 ## Low memmory error
 In some case you might get virutal memmory low error like `[1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]`. In that case execute the command in your host machine
+
 `sudo sysctl -w vm.max_map_count=262144`
 
 ## Securing Kibana using Nginx
