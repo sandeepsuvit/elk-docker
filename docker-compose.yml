@@ -1,0 +1,28 @@
+version: "3.3"
+services: 
+    # Service registry
+    elk:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      image: sebp/elk
+      volumes:
+        # Persist elastic search data
+        - ./elk-data/elasticsearch:/var/lib/elasticsearch
+        # Externalize configuration for elasticsearch
+        - ./elk-config/etc/elasticsearch/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
+        # Externalize configuration for logstash
+        - ./elk-config/opt/logstash/config/logstash.yml:/opt/logstash/config/logstash.yml
+        # Externalize configuration for kibana
+        - ./elk-config/opt/kibana/config/kibana.yml:/opt/logstash/config/kibana.yml
+        # Logstash log monitor configuration
+        # - ./elk-config/etc/logstash/conf.d/30-output.conf:/etc/logstash/conf.d/30-output.conf
+        - ./elk-config/etc/logstash/conf.d:/etc/logstash/conf.d
+        # Logstash log monitor configuration - Enable this if using log file for monitoring
+        # - /Users/sandeepknair/Documents/temp/elk:/logs
+      ports:
+        - "5601:5601"
+        - "9200:9200"
+        - "5044:5044"
+        # Logstash bind to port
+        - "5000:5000"
